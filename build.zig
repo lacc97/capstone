@@ -23,6 +23,7 @@ pub fn build(b: *Build) void {
     addArchitectureSources(b, capstone_lib);
     capstone_lib.addCSourceFiles(&base_sources, &base_flags);
     capstone_lib.linkLibC();
+    capstone_lib.installHeadersDirectory("include/capstone", "capstone");
     b.installArtifact(capstone_lib);
 }
 
