@@ -236,6 +236,13 @@ fn addArchitectureSources(b: *Build, compile: *Build.Step.Compile) void {
             };
             compile.defineCMacro(definition, null);
             compile.addCSourceFiles(arch.sources, &base_flags);
+
+            if (std.mem.eql(u8, arch.name, "x86") and compile.optimize != .ReleaseSmall) {
+                compile.addCSourceFile(.{
+                    .file = .{ .path = "arch/X86/X86ATTInstPrinter.c" },
+                    .flags = &base_flags,
+                });
+            }
         }
     }
 }
